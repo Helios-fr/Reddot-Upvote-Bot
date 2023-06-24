@@ -14,10 +14,12 @@ def main():
     if choice == "1":
         Upvote(mgr)
     elif choice == "2":
-        LoadAccounts(mgr)
+        ConvertAccounts(mgr)
     elif choice == "3":
-        ViewAccounts(mgr)
+        LoadAccounts(mgr)
     elif choice == "4":
+        ViewAccounts(mgr)
+    elif choice == "5":
         Exit()
 
 main()
