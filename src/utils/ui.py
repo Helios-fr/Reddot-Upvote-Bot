@@ -14,20 +14,24 @@ def Logo():
 def Options():
     import colorama
     import os
+
     colorama.init()
     print(colorama.Fore.CYAN + "1. Upvote a post")
     print(colorama.Fore.CYAN + "2. Load accounts")
     print(colorama.Fore.CYAN + "3. View accounts")
     print(colorama.Fore.CYAN + "4. Exit")
-    choice = input(colorama.Fore.MAGENTA + "Choice: ")
-    if choice != "1" and choice != "2" and choice != "3" and choice != "4":
-        # clear the screen on linux and windows
+
+    choice = input(colorama.Fore.MAGENTA + "Choice: ").strip()
+
+    if choice not in ("1", "2", "3", "4"):
+        # Clear the screen on Linux and Windows
         os.system('cls' if os.name == 'nt' else 'clear')
         Logo()
-        print(colorama.Fore.RED + "Invalid choice!")
+        print(colorama.Fore.RED + f"Invalid choice! ({choice})")
         Options()
 
     return choice
+
 
 
 if __name__ == '__main__':
