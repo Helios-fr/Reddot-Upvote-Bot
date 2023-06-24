@@ -22,8 +22,28 @@ def Upvote(mgr, post_id=None, amount=None):
         except Exception as e:
             print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} ({e})")
 
+def ConvertAccounts(mgr, file=None):
+    from .convert import Convert
+    import colorama
 
-        
+    if file == None: file = input(colorama.Fore.MAGENTA + "File to convert: ").strip()
+    # read the file and split at :
+    account_strings = []
+    with open(file, 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            account_strings.append(line.strip())
+
+
+    # convert the accounts
+    converted_account_strings = []
+    for account in account_strings:
+        converted_account_strings.append(Convert(account.split(":")[0], account.split(":")[1]))
+    
+    # write the converted accounts to a file
+    with open('converted.txt', 'w') as f:
+        for account in converted_account_strings:
+            f.write(account + "\n")
 
 def LoadAccounts(mgr):
     pass

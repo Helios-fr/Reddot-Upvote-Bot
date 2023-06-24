@@ -17,6 +17,7 @@ def login(username, password):
     response = requests.post(f"https://old.reddit.com/api/login/{username}", data=login_data, headers=headers)
 
     # save the modhash in the response text
+    print(response.json())
     modhash = response.json()['json']['data']['modhash']
 
     edgebucket_cookie = response.cookies.get('edgebucket')
@@ -58,6 +59,7 @@ def create_app(cookies, uh):
     return response.text
 
 def Convert(username, password):
+    print(username + ":" + password + ":")
     cookies, uh = login(username, password)
     response_text = create_app(cookies, uh)
 
