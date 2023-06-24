@@ -50,14 +50,10 @@ user2:password2 --> user2:password2:appid2:appsecret2
 ```
 
 ## User requirements
-
-So I need a reddit api upvote bot, since web bots are slow and shit. I think the previous dev reversed reddit apk.
-
-The features need to be:
-- Upvote & downvote posts and comments
-- Use 1 or more proxies (support for a single rotating proxy)
-- Check if the accounts have been suspended before upvoting
-- Requests must not be linked in any way (headers)
-- Options for delays between upvotes.
-- Ability to upvote multiple posts at the same time.
-- Option to provide account information in a txt file
+- [ ] Upvote & downvote posts and comments
+- [ ] Use 1 or more proxies (support for a single rotating proxy)
+- [ ] Check if the accounts have been suspended before upvoting
+- [ ] Requests must not be linked in any way (headers)
+- [ ] Options for delays between upvotes.
+- [ ] Ability to upvote multiple posts at the same time.
+- [ ] Option to provide account information in a txt file
