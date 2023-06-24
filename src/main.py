@@ -1,4 +1,4 @@
-import praw
+import api
 import colorama
 import os
 from utils import *
