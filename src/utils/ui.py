@@ -26,7 +26,11 @@ def Options():
     print(colorama.Fore.CYAN + "4. View accounts")
     print(colorama.Fore.CYAN + "5. Exit")
 
-    choice = input(colorama.Fore.MAGENTA + "Choice: ").strip()
+    try:
+        choice = input(colorama.Fore.MAGENTA + "Choice: ").strip()
+    except EOFError:
+        print(colorama.Fore.RED + "Please use the docker command to run the script found on the github page.")
+        os._exit(0)
 
     if choice not in ("1", "2", "3", "4", "5"):
         Clear()

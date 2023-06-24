@@ -16,11 +16,11 @@ def Upvote(mgr, post_id=None, amount=None):
 
     # loop through the accounts and upvote the post
     for account in accounts:
-        # try:
-            mgr.get_api(account).submission(post_id).upvote()
+        try:
+            mgr.get_api(account).submission(id=post_id).upvote()
             print(colorama.Fore.GREEN + f"Upvoted post {post_id} with account {account}")
-        # except Exception as e:
-            # print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} ({e})")
+        except Exception as e:
+            print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} ({e})")
     
     input(colorama.Fore.GREEN + "Finished upvoting, press enter to continue")
 

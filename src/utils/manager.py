@@ -20,9 +20,10 @@ class Manager:
                     # add the account to the accounts dictionary
                     # the line is username:password:app_id:app_secret
                     self.accounts[line[0]] = {
+                        'username': line[0],
                         'password': line[1],
                         'app_id': line[2],
-                        'app_secret': line[3]
+                        'app_secret': line[3].strip()
                     }
 
                     if logging:
