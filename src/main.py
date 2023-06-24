@@ -16,6 +16,8 @@ print("CSRF token: " + csrf_token)
 # username: 177954
 # password: 4P."f7ybqKrStjE
 
+# https://www.reddit.com/r/anime/comments/14gx4rj/konosuba_darkness_ideal_man/
+
 import requests
 
 # POST request to login with username and password
