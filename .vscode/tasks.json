@@ -13,7 +13,7 @@
         {
             "label": "run image",
             "type": "shell",
-            "command": "docker run --rm reddit",
+            "command": "docker run --rm -i reddit",
             "group": {
                 "kind": "build",
                 "isDefault": true
