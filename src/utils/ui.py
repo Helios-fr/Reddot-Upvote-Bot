@@ -17,13 +17,14 @@ def Options():
 
     colorama.init()
     print(colorama.Fore.CYAN + "1. Upvote a post")
-    print(colorama.Fore.CYAN + "2. Load accounts")
-    print(colorama.Fore.CYAN + "3. View accounts")
-    print(colorama.Fore.CYAN + "4. Exit")
+    print(colorama.Fore.CYAN + "2. Convert accounts")
+    print(colorama.Fore.CYAN + "3. Load accounts")
+    print(colorama.Fore.CYAN + "4. View accounts")
+    print(colorama.Fore.CYAN + "5. Exit")
 
     choice = input(colorama.Fore.MAGENTA + "Choice: ").strip()
 
-    if choice not in ("1", "2", "3", "4"):
+    if choice not in ("1", "2", "3", "4", "5"):
         # Clear the screen on Linux and Windows
         os.system('cls' if os.name == 'nt' else 'clear')
         Logo()
