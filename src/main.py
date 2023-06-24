@@ -3,7 +3,7 @@ import colorama
 import os
 from utils import *
 
-mgr = Manager('converted.txt')
+mgr = Manager('../converted.txt')
 
 def main():
     Clear()
