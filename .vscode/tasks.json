@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build image",
+            "type": "shell",
+            "command": "docker build --rm -t reddit .",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        },
+        {
+            "label": "run image",
+            "type": "shell",
+            "command": "docker run --rm reddit",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        },
+        {
+            "label": "run raw",
+            "type": "shell",
+            "command": "cd src; python main.py",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        }
+    ]
+}
