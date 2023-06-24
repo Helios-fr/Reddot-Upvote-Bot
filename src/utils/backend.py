@@ -2,12 +2,12 @@ def Upvote(mgr, post_id=None, amount=None):
     import random
     import colorama
     # ask user for the post id
-    if post_id == None: post_id = input(colorama.Fore.MAGENTA + "Post ID: ")
+    if post_id == None: post_id = input(colorama.Fore.MAGENTA + "Post ID: ").strip()
     # ask user for amount of accounts out of the loaded accounts to use
     if amount == None:
         amount = 1000000000
         while int(amount) > len(mgr.accounts):
-            amount = input(colorama.Fore.MAGENTA + f"Amount of accounts to use (Max {len(mgr.accounts)}): ")
+            amount = input(colorama.Fore.MAGENTA + f"Amount of accounts to use (Max {len(mgr.accounts)}): ").strip()
             if int(amount) > len(mgr.accounts):
                 print(colorama.Fore.RED + f"Amount is higher than the amount of accounts loaded ({len(mgr.accounts)})")
     
