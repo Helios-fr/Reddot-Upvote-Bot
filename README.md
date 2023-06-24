@@ -11,3 +11,28 @@
 ##  Reddit Upvote Bot
 This script uses lists of account logins to upvote specified posts.
 
+## Instalation
+To install a stable version of the code navigate to the [Releases](https://github.com/Nyxqxx/UpvoteBot/releases) tab of this repository and download the latest release.
+If no releases are available download the latest up to date code from [the github repository](https://github.com/Nyxqxx/UpvoteBot/archive/refs/heads/main.zip)
+
+## Running the program
+#### Open a terminal window in the root of the project
+#### Run the below command to install the dependencies of the project
+```
+pip install -r requirements.txt
+```
+#### Run the below command to run the program
+```
+python src/main.py
+```
+
+## Running the program using docker
+#### Open a terminal window at the root of the project
+#### Run the below command to build the docker image
+```
+docker build --rm -t UpvoteBot .
+```
+#### Run the below command to run the image in interactive mode
+```
+docker run --rm -i reddit
+```
