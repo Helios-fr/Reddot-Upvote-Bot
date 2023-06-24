@@ -8,3 +8,6 @@
         | |  Reddit Karma bot by Nyx 
         |_|   
 ```
+##  Reddit Upvote Bot
+This script uses lists of account logins to upvote specified posts.
+
