@@ -1,3 +1,7 @@
+def Clear():
+    import os
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def Logo():
     import colorama
     colorama.init()
@@ -25,8 +29,7 @@ def Options():
     choice = input(colorama.Fore.MAGENTA + "Choice: ").strip()
 
     if choice not in ("1", "2", "3", "4", "5"):
-        # Clear the screen on Linux and Windows
-        os.system('cls' if os.name == 'nt' else 'clear')
+        Clear()
         Logo()
         print(colorama.Fore.RED + f"Invalid choice! ({choice})")
         Options()

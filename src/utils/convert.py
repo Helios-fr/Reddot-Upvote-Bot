@@ -56,12 +56,16 @@ def create_app(cookies, uh):
 
     return response.text
 
-def Convert(username, password):
+def Convert(username, password, logging=False):
+    import colorama
+
     cookies, uh = login(username, password)
     response_text = create_app(cookies, uh)
 
     app_id = response_text.split('developed-app-')[1].split('"')[0][:22]
     app_secret = response_text.split(r'secret&lt;/th&gt;&lt;td class=\"prefright\"&gt;')[1].split("&")[0]
+
+    if logging: print(colorama.Fore.CYAN + f"[" + colorama.Fore.GREEN + "+" + colorama.Fore.CYAN + f"] Converted account {username}")
 
     return f"{username}:{password}:{app_id}:{app_secret}"
 

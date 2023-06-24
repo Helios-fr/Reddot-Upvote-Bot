@@ -4,7 +4,9 @@ class Manager:
         if file != None:
             self.load(file)
 
-    def load(self, file):
+    def load(self, file, logging=False):
+        import colorama
+
         with open(file, 'r') as f:
             for line in f:
                 # split the line by :
@@ -22,6 +24,10 @@ class Manager:
                         'app_id': line[2],
                         'app_secret': line[3]
                     }
+
+                    if logging:
+                        # [+] Loaded account {username} into database
+                        print(colorama.Fore.CYAN + f"[" + colorama.Fore.GREEN + "+" + colorama.Fore.CYAN + f"] Loaded account {line[0]} into database")
     
     def save(self, file):
         with open(file, 'w') as f:
