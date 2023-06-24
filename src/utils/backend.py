@@ -1,6 +1,7 @@
 def Upvote(mgr, post_id=None, amount=None):
     import random
     import colorama
+    from api import upvote_post
     # ask user for the post id
     if post_id == None: post_id = input(colorama.Fore.MAGENTA + "Post ID: ").strip()
     # ask user for amount of accounts out of the loaded accounts to use
@@ -17,7 +18,8 @@ def Upvote(mgr, post_id=None, amount=None):
     # loop through the accounts and upvote the post
     for account in accounts:
         try:
-            mgr.get_api(account).submission(id=post_id).upvote()
+            user = mgr.get_api(account)
+            upvote_post(user, post_id)
             print(colorama.Fore.GREEN + f"Upvoted post {post_id} with account {account}")
         except Exception as e:
             print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} ({e})")

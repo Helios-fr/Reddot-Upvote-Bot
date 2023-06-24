@@ -37,21 +37,14 @@ class Manager:
                 f.write(f'{username}:{account["password"]}:{account["app_id"]}:{account["app_secret"]}\n')
     
     def get_api(self, username):
-        import praw
+        from api import User
 
-        # get the account
-        account = self.accounts[username]
+        user = User(self.accounts[username]['username'], 
+                    self.accounts[username]['password'], 
+                    self.accounts[username]['app_id'], 
+                    self.accounts[username]['app_secret'])
 
-        # create a reddit instance
-        reddit = praw.Reddit(
-            client_id=account['app_id'],
-            client_secret=account['app_secret'],
-            user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/114.0',
-            username=username,
-            password=account['password']
-        )
-
-        return reddit
+        return user
 
 if __name__ == '__main__':
     # run main.py
