@@ -3,11 +3,10 @@ import colorama
 import os
 from utils import *
 
-os.system('cls' if os.name == 'nt' else 'clear')
-
-mgr = Manager('accounts.txt')
+mgr = Manager()
 
 def main():
+    Clear()
     Logo()
     choice = Options()
 
@@ -22,4 +21,5 @@ def main():
     elif choice == "5":
         Exit()
 
-main()
+while True:
+    main()
