@@ -1,1 +1,1 @@
-# Reddit Karma
+# Upvote Bot
