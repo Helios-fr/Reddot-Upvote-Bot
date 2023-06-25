@@ -1,26 +1,21 @@
-import praw
-from utils import manager
+import colorama
 
-mgr = manager.Manager('converted.txt')
+post_ids = None
+comment = False
 
-for account in mgr.accounts:
-    print(f"Logging into {account}...")
-    print(f"Username: {mgr.accounts[account]['username']}")
-    print(f"Password: {mgr.accounts[account]['password']}")
-    print(f"App ID: {mgr.accounts[account]['app_id']}")
-    print(f"App Secret: {mgr.accounts[account]['app_secret']}")
+if post_ids == None: post_ids = input(colorama.Fore.MAGENTA + "Post ID's (separated by ', '): ").strip()
+post_ids = post_ids.split(', ')
+new = []
+for post_id in post_ids:
+    if comment == False:
+        if post_id.startswith('t3_'): post_id = post_id[3:]
+        post_id = 't3_' + post_id
+        new.append(post_id)
+    else:
+        if post_id.startswith('t1_'): post_id = post_id[3:]
+        post_id = 't1_' + post_id
+        new.append(post_id)
+post_ids = new
 
-
-    reddit = praw.Reddit(
-        client_id=mgr.accounts[account]['app_id'],
-        client_secret=mgr.accounts[account]['app_secret'],
-        user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/114.0',
-        username=mgr.accounts[account]['username'],
-        password=mgr.accounts[account]['password']
-    )
-
-    # get the ost by id
-    post = reddit.submission(id='14gbl23')
-
-    post.upvote()
+print(post_ids)
 

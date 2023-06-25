@@ -1,16 +1,24 @@
-def Upvote(mgr, amount=None, comment=False):
+def Upvote(mgr, post_ids=None, amount=None, comment=False):
     import random
     import colorama
     import time
 
     from api import upvote_post
     # ask user for the post id
-    if post_ids == None: post_id = input(colorama.Fore.MAGENTA + "Post ID's (separated by ', '): ").strip()
+    if post_ids == None: post_ids = input(colorama.Fore.MAGENTA + "Post ID's (separated by ', '): ").strip()
     post_ids = post_ids.split(', ')
-
+    new = []
     for post_id in post_ids:
-        if comment == False and not post_id.startswith('t3_'): post_id = 't3_' + post_id
-        if comment == True and not post_id.startswith('t1_'): post_id = 't1_' + post_id
+        if comment == False:
+            if post_id.startswith('t3_'): post_id = post_id[3:]
+            post_id = 't3_' + post_id
+            new.append(post_id)
+        else:
+            if post_id.startswith('t1_'): post_id = post_id[3:]
+            post_id = 't1_' + post_id
+            new.append(post_id)
+    post_ids = new
+    
     # ask user for amount of accounts out of the loaded accounts to use
     if amount == None:
         amount = 1000000000
@@ -46,18 +54,27 @@ def Upvote(mgr, amount=None, comment=False):
     
     input(colorama.Fore.GREEN + "Finished upvoting, press enter to continue")
 
-def Downvote(mgr, amount=None, comment=False):
+def Downvote(mgr, post_ids=None, amount=None, comment=False):
     import random
     import colorama
     import time
 
     from api import downvote_post
     # ask user for the post id
-    if post_ids == None: post_id = input(colorama.Fore.MAGENTA + "Post ID's (separated by ', '): ").strip()
+    if post_ids == None: post_ids = input(colorama.Fore.MAGENTA + "Post ID's (separated by ', '): ").strip()
     post_ids = post_ids.split(', ')
+    new = []
     for post_id in post_ids:
-        if comment == False and not post_id.startswith('t3_'): post_id = 't3_' + post_id
-        if comment == True and not post_id.startswith('t1_'): post_id = 't1_' + post_id
+        if comment == False:
+            if post_id.startswith('t3_'): post_id = post_id[3:]
+            post_id = 't3_' + post_id
+            new.append(post_id)
+        else:
+            if post_id.startswith('t1_'): post_id = post_id[3:]
+            post_id = 't1_' + post_id
+            new.append(post_id)
+    post_ids = new
+
     # ask user for amount of accounts out of the loaded accounts to use
     if amount == None:
         amount = 1000000000
@@ -81,7 +98,7 @@ def Downvote(mgr, amount=None, comment=False):
         user = mgr.get_api(account, proxy=mgr.proxies.random())
         for post_id in post_ids:
             try:
-                downvote_post(user, post_id)
+                downvote_post(user, post_id, proxy=mgr.proxies.random())
                 print(colorama.Fore.GREEN + f"Downvoted post {post_id} with account {account}")
             except Exception as e:
                 if "401" in str(e):
