@@ -38,6 +38,9 @@ def upvote_post(user, post_id, proxy=None):
 
     response = requests.post('https://oauth.reddit.com/api/vote', params=params, headers=headers, data=data, proxies=proxies)
 
+    if response.status_code == 401:
+        raise Exception("403 Forbidden")
+
 
 def downvote_post(user, post_id, proxy=None):
     import requests
@@ -78,3 +81,6 @@ def downvote_post(user, post_id, proxy=None):
     proxies = {'http': proxy, 'https': proxy} if proxy else None
 
     response = requests.post('https://oauth.reddit.com/api/vote', params=params, headers=headers, data=data, proxies=proxies)
+
+    if response.status_code == 401:
+        raise Exception("403 Forbidden")
