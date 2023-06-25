@@ -126,7 +126,7 @@ def ConvertAccounts(mgr, file=None):
     # convert the accounts
     converted_account_strings = []
     for account in account_strings:
-        converted_account_strings.append(Convert(account.split(":")[0], account.split(":")[1], logging=True))
+        converted_account_strings.append(Convert(account.split(":")[0], account.split(":")[1], logging=True, proxy=mgr.proxies.random()))
     
     # write the converted accounts to a file
     with open('converted.txt', 'w') as f:

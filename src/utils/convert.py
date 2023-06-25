@@ -1,6 +1,6 @@
 import requests
 
-def login(username, password):
+def login(username, password, proxy=None):
     login_data = {
         "op": "login-main",
         "user": username,
@@ -14,7 +14,10 @@ def login(username, password):
         "origin": "https://old.reddit.com",
         "referer": "https://old.reddit.com/"
     }
-    response = requests.post(f"https://old.reddit.com/api/login/{username}", data=login_data, headers=headers)
+    
+    proxies = {'http': proxy, 'https': proxy} if proxy else None
+
+    response = requests.post(f"https://old.reddit.com/api/login/{username}", data=login_data, headers=headers, proxies=proxies)
 
     modhash = response.json()['json']['data']['modhash']
 
@@ -33,7 +36,7 @@ def login(username, password):
 
     return cookies, modhash
 
-def create_app(cookies, uh):
+def create_app(cookies, uh, proxy=None):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/114.0',
         'Accept': 'application/json, text/javascript, */*; q=0.01',
@@ -52,15 +55,17 @@ def create_app(cookies, uh):
 
     data = f'uh={uh}&name=example&app_type=script&description=&about_url=example.com&redirect_uri=http://www.example.com&id=^%^23create-app&renderstyle=html'
 
-    response = requests.post('https://www.reddit.com/api/updateapp', cookies=cookies, headers=headers, data=data)
+    proxies = {'http': proxy, 'https': proxy} if proxy else None
+
+    response = requests.post('https://www.reddit.com/api/updateapp', cookies=cookies, headers=headers, data=data, proxies=proxies)
 
     return response.text
 
-def Convert(username, password, logging=False):
+def Convert(username, password, logging=False, proxy=None):
     import colorama
 
-    cookies, uh = login(username, password)
-    response_text = create_app(cookies, uh)
+    cookies, uh = login(username, password, proxy)
+    response_text = create_app(cookies, uh, proxy)
 
     app_id = response_text.split('developed-app-')[1].split('"')[0][:22]
     app_secret = response_text.split(r'secret&lt;/th&gt;&lt;td class=\"prefright\"&gt;')[1].split("&")[0]
@@ -68,8 +73,6 @@ def Convert(username, password, logging=False):
     if logging: print(colorama.Fore.CYAN + f"[" + colorama.Fore.GREEN + "+" + colorama.Fore.CYAN + f"] Converted account {username}")
 
     return f"{username}:{password}:{app_id}:{app_secret}"
-
-# print(Convert("177954", '4P."f7ybqKrStjE'))
 
 if __name__ == '__main__':
     username = input("Username: ")
