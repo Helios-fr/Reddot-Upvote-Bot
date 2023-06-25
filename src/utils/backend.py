@@ -47,9 +47,12 @@ def Upvote(mgr, post_ids=None, amount=None, comment=False):
             except Exception as e:
                 if "401" in str(e):
                     print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} (Account Suspended)")
-                    accounts.append(all_accounts.pop(0)) 
+                    try:
+                        accounts.append(all_accounts.pop(0))
+                    except:
+                        print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} (No more accounts)")
                 else:
-                    print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} ({e})")
+                    print(colorama.Fore.RED + f"Failed to upvote post {post_id} ({e})")
         time.sleep(int(delay))
     
     input(colorama.Fore.GREEN + "Finished upvoting, press enter to continue")
@@ -103,7 +106,10 @@ def Downvote(mgr, post_ids=None, amount=None, comment=False):
             except Exception as e:
                 if "401" in str(e):
                     print(colorama.Fore.RED + f"Failed to downvote post {post_id} with account {account} (Account Suspended)")
-                    accounts.append(all_accounts.pop(0)) 
+                    try:
+                        accounts.append(all_accounts.pop(0))
+                    except:
+                        print(colorama.Fore.RED + f"Failed to upvote post {post_id} (No more accounts)")
                 else:
                     print(colorama.Fore.RED + f"Failed to downvote post {post_id} with account {account} ({e})")
         time.sleep(int(delay))
