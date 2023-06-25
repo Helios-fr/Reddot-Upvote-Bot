@@ -20,7 +20,11 @@ def Upvote(mgr, amount=None, comment=False):
                 print(colorama.Fore.RED + f"Amount is higher than the amount of accounts loaded ({len(mgr.accounts)})")
     
     # pick amount random accounts from the loaded accounts
-    accounts = random.sample(list(mgr.accounts), int(amount))
+    all_accounts = list(mgr.accounts)
+    accounts = random.sample(all_accounts, int(amount))
+
+    # remove the accounts from the list of all accounts
+    all_accounts = [account for account in all_accounts if account not in accounts]
 
     # ask user for the delay between upvotes
     delay = input(colorama.Fore.MAGENTA + "Delay between upvotes (in seconds): ").strip()
@@ -35,6 +39,7 @@ def Upvote(mgr, amount=None, comment=False):
             except Exception as e:
                 if "401" in str(e):
                     print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} (Account Suspended)")
+                    accounts.append(all_accounts.pop(0)) 
                 else:
                     print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} ({e})")
         time.sleep(int(delay))
@@ -62,7 +67,11 @@ def Downvote(mgr, amount=None, comment=False):
                 print(colorama.Fore.RED + f"Amount is higher than the amount of accounts loaded ({len(mgr.accounts)})")
     
     # pick amount random accounts from the loaded accounts
-    accounts = random.sample(list(mgr.accounts), int(amount))
+    all_accounts = list(mgr.accounts)
+    accounts = random.sample(all_accounts, int(amount))
+
+    # remove the accounts from the list of all accounts
+    all_accounts = [account for account in all_accounts if account not in accounts]
 
     # ask user for the delay between upvotes
     delay = input(colorama.Fore.MAGENTA + "Delay between downvotes (in seconds): ").strip()
@@ -77,6 +86,7 @@ def Downvote(mgr, amount=None, comment=False):
             except Exception as e:
                 if "401" in str(e):
                     print(colorama.Fore.RED + f"Failed to downvote post {post_id} with account {account} (Account Suspended)")
+                    accounts.append(all_accounts.pop(0)) 
                 else:
                     print(colorama.Fore.RED + f"Failed to downvote post {post_id} with account {account} ({e})")
         time.sleep(int(delay))
