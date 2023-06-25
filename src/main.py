@@ -9,6 +9,9 @@ from api import *
 mgr = Manager('converted.txt')
 mgr.proxies = ProxyManager()
 
+# to load your proxies, use the following code:
+# mgr.proxies.load_single("http://localhost:8080")
+
 def main():
     Clear()
     Logo()

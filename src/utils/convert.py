@@ -15,7 +15,11 @@ def login(username, password, proxy=None):
         "referer": "https://old.reddit.com/"
     }
     
+    # proxy should be in the format of "http://ip:port"
     proxies = {'http': proxy, 'https': proxy} if proxy else None
+
+    # if it was a socks5 proxy, it would be like this:
+    # proxies = {'http': 'socks5://ip:port', 'https': 'socks5://ip:port'} if proxy else None
 
     response = requests.post(f"https://old.reddit.com/api/login/{username}", data=login_data, headers=headers, proxies=proxies)
 

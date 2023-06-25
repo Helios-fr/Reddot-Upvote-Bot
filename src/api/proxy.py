@@ -16,6 +16,9 @@ class ProxyManager:
         
         print(f"Loaded {len(proxies)} proxies")
     
+    def load_single(self, proxy):
+        self.proxies.append(proxy)
+    
     def random(self):
         import random
 
