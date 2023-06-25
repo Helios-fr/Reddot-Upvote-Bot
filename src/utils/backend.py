@@ -110,28 +110,59 @@ def Downvote(mgr, post_ids=None, amount=None, comment=False):
     
     input(colorama.Fore.GREEN + "Finished downvoting, press enter to continue")
 
+
 def ConvertAccounts(mgr, file=None):
+    import threading
+    from queue import Queue
     from .convert import Convert
     import colorama
 
-    if file == None: file = input(colorama.Fore.MAGENTA + "File to convert: ").strip()
-    # read the file and split at :
+    if file is None:
+        file = input(colorama.Fore.MAGENTA + "File to convert: ").strip()
+
+    # Read the file and split at ":"
     account_strings = []
     with open(file, 'r') as f:
         lines = f.readlines()
         for line in lines:
             account_strings.append(line.strip())
 
+    # Define a function to convert an individual account in a thread
+    def convert_account(account, results_queue):
+        try:
+            converted_account = Convert(account.split(":")[0], account.split(":")[1], logging=True, proxy=mgr.proxies.random())
+        except Exception as e:
+            converted_account = f"{account} - {e}"
+        results_queue.put(converted_account)
 
-    # convert the accounts
-    converted_account_strings = []
+    # Create a queue to store the results
+    results_queue = Queue()
+
+    # Create a list to store the thread objects
+    threads = []
+
+    # Convert the accounts using threads
     for account in account_strings:
-        converted_account_strings.append(Convert(account.split(":")[0], account.split(":")[1], logging=True, proxy=mgr.proxies.random()))
-    
-    # write the converted accounts to a file
+        thread = threading.Thread(target=convert_account, args=(account, results_queue))
+        threads.append(thread)
+        thread.start()
+
+    # Wait for all threads to finish
+    for thread in threads:
+        thread.join()
+
+    # Get the converted accounts from the queue
+    converted_account_strings = []
+    while not results_queue.empty():
+        converted_account = results_queue.get()
+        converted_account_strings.append(converted_account)
+
+    # Write the converted accounts to a file
     with open('converted.txt', 'w') as f:
         for account in converted_account_strings:
             f.write(account + "\n")
+
+
 
 def LoadAccounts(mgr, file=None):
     import colorama
