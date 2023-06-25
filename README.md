@@ -50,10 +50,10 @@ user2:password2 --> user2:password2:appid2:appsecret2
 ```
 
 ## User requirements
-- [ ] Upvote & downvote posts and comments
-- [ ] Use 1 or more proxies (support for a single rotating proxy)
-- [ ] Check if the accounts have been suspended before upvoting
-- [ ] Requests must not be linked in any way (headers)
-- [ ] Options for delays between upvotes.
-- [ ] Ability to upvote multiple posts at the same time.
-- [ ] Option to provide account information in a txt file
+- [x] Upvote & downvote posts and comments
+- [x] Use 1 or more proxies (support for a single rotating proxy)
+- [x] Check if the accounts have been suspended before upvoting
+- [x] Requests must not be linked in any way (headers)
+- [x] Options for delays between upvotes.
+- [x] Ability to upvote multiple posts at the same time.
+- [x] Option to provide account information in a txt file
