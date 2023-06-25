@@ -1,5 +1,6 @@
-def upvote_post(user, post_id):
+def upvote_post(user, post_id, proxy=None):
     import requests
+    from .auth import get_access_token
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/114.0',
@@ -16,7 +17,7 @@ def upvote_post(user, post_id):
         'Sec-Fetch-Site': 'same-site',
         'DNT': '1',
         'Sec-GPC': '1',
-        'Authorization': f'Bearer {get_access_token(user)}',
+        'Authorization': f'Bearer {get_access_token(user, proxy)}',
         'Connection': 'keep-alive',
     }
 
@@ -33,10 +34,14 @@ def upvote_post(user, post_id):
         'api_type': 'json',
     }
 
-    response = requests.post('https://oauth.reddit.com/api/vote', params=params, headers=headers, data=data)
+    proxies = {'http': proxy, 'https': proxy} if proxy else None
 
-def downvote_post(user, post_id):
+    response = requests.post('https://oauth.reddit.com/api/vote', params=params, headers=headers, data=data, proxies=proxies)
+
+
+def downvote_post(user, post_id, proxy=None):
     import requests
+    from .auth import get_access_token
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/114.0',
@@ -53,7 +58,7 @@ def downvote_post(user, post_id):
         'Sec-Fetch-Site': 'same-site',
         'DNT': '1',
         'Sec-GPC': '1',
-        'Authorization': f'Bearer {get_access_token(user)}',
+        'Authorization': f'Bearer {get_access_token(user, proxy)}',
         'Connection': 'keep-alive',
     }
 
@@ -70,4 +75,6 @@ def downvote_post(user, post_id):
         'api_type': 'json',
     }
 
-    response = requests.post('https://oauth.reddit.com/api/vote', params=params, headers=headers, data=data)
+    proxies = {'http': proxy, 'https': proxy} if proxy else None
+
+    response = requests.post('https://oauth.reddit.com/api/vote', params=params, headers=headers, data=data, proxies=proxies)

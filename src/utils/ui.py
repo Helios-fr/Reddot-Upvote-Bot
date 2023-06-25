@@ -20,11 +20,11 @@ def Options():
     import os
 
     colorama.init()
-    print(colorama.Fore.CYAN + "1. Upvote a post")
-    print(colorama.Fore.CYAN + "2. Convert accounts")
-    print(colorama.Fore.CYAN + "3. Load accounts")
-    print(colorama.Fore.CYAN + "4. View accounts")
-    print(colorama.Fore.CYAN + "5. Exit")
+    print(colorama.Fore.CYAN + "1. Upvote a post     2. Downvote a post")
+    print(colorama.Fore.CYAN + "3. Upvote a comment  4. Downvote a comment")
+    print(colorama.Fore.CYAN + "5. Load accounts     6. View accounts")
+    print(colorama.Fore.CYAN + "7. Convert accounts  8. Exit")
+    print()
 
     try:
         choice = input(colorama.Fore.MAGENTA + "Choice: ").strip()
@@ -32,7 +32,7 @@ def Options():
         print(colorama.Fore.RED + "Please use the docker command to run the script found on the github page.")
         os._exit(0)
 
-    if choice not in ("1", "2", "3", "4", "5"):
+    if choice not in ("1", "2", "3", "4", "5", "6", "7", "8"):
         Clear()
         Logo()
         print(colorama.Fore.RED + f"Invalid choice! ({choice})")

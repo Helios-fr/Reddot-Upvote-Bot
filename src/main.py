@@ -1,9 +1,13 @@
-import api
+# base imports
 import colorama
 import os
+
+# custom imports
 from utils import *
+from api import *
 
 mgr = Manager('converted.txt')
+mgr.proxies = ProxyManager()
 
 def main():
     Clear()
@@ -13,12 +17,18 @@ def main():
     if choice == "1":
         Upvote(mgr)
     elif choice == "2":
-        ConvertAccounts(mgr)
+        Downvote(mgr)
     elif choice == "3":
-        LoadAccounts(mgr)
+        Upvote(mgr, comment=True)
     elif choice == "4":
-        ViewAccounts(mgr)
+        Downvote(mgr, comment=True)
     elif choice == "5":
+        LoadAccounts(mgr)
+    elif choice == "6":
+        ViewAccounts(mgr)
+    elif choice == "7":
+        ConvertAccounts(mgr)
+    elif choice == "8":
         Exit()
 
 while True:

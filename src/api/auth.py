@@ -1,4 +1,4 @@
-def login(username, password):
+def login(username, password, proxy=None):
     import requests
 
     login_data = {
@@ -14,7 +14,10 @@ def login(username, password):
         "origin": "https://old.reddit.com",
         "referer": "https://old.reddit.com/"
     }
-    response = requests.post(f"https://old.reddit.com/api/login/{username}", data=login_data, headers=headers)
+
+    proxies = {'http': proxy, 'https': proxy} if proxy else None
+
+    response = requests.post(f"https://old.reddit.com/api/login/{username}", data=login_data, headers=headers, proxies=proxies)
 
     modhash = response.json()['json']['data']['modhash']
 
@@ -33,7 +36,8 @@ def login(username, password):
 
     return cookies, modhash
 
-def get_access_token(user):
+
+def get_access_token(user, proxy=None):
     import requests
 
     username = user.username
@@ -56,7 +60,9 @@ def get_access_token(user):
     # create the auth
     auth = requests.auth.HTTPBasicAuth(app_id, app_secret)
 
+    proxies = {'http': proxy, 'https': proxy} if proxy else None
+
     # send the request
-    response = requests.post('https://www.reddit.com/api/v1/access_token', data=data, headers=headers, auth=auth)
+    response = requests.post('https://www.reddit.com/api/v1/access_token', data=data, headers=headers, auth=auth, proxies=proxies)
 
     return response.json()['access_token']

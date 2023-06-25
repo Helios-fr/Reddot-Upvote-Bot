@@ -1,6 +1,7 @@
 class Manager:
     def __init__(self, file=None):
         self.accounts = {}
+        self.proxies = None
         if file != None:
             self.load(file)
 

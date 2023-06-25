@@ -1,9 +1,16 @@
-def Upvote(mgr, post_id=None, amount=None):
+def Upvote(mgr, amount=None, comment=False):
     import random
     import colorama
+    import time
+
     from api import upvote_post
     # ask user for the post id
-    if post_id == None: post_id = input(colorama.Fore.MAGENTA + "Post ID: ").strip()
+    if post_ids == None: post_id = input(colorama.Fore.MAGENTA + "Post ID's (separated by ', '): ").strip()
+    post_ids = post_ids.split(', ')
+
+    for post_id in post_ids:
+        if comment == False and not post_id.startswith('t3_'): post_id = 't3_' + post_id
+        if comment == True and not post_id.startswith('t1_'): post_id = 't1_' + post_id
     # ask user for amount of accounts out of the loaded accounts to use
     if amount == None:
         amount = 1000000000
@@ -15,16 +22,66 @@ def Upvote(mgr, post_id=None, amount=None):
     # pick amount random accounts from the loaded accounts
     accounts = random.sample(list(mgr.accounts), int(amount))
 
+    # ask user for the delay between upvotes
+    delay = input(colorama.Fore.MAGENTA + "Delay between upvotes (in seconds): ").strip()
+
     # loop through the accounts and upvote the post
     for account in accounts:
-        try:
-            user = mgr.get_api(account)
-            upvote_post(user, post_id)
-            print(colorama.Fore.GREEN + f"Upvoted post {post_id} with account {account}")
-        except Exception as e:
-            print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} ({e})")
+        user = mgr.get_api(account)
+        for post_id in post_ids:
+            try:
+                upvote_post(user, post_id, proxy=mgr.proxies.random())
+                print(colorama.Fore.GREEN + f"Upvoted post {post_id} with account {account}")
+            except Exception as e:
+                if "401" in str(e):
+                    print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} (Account Suspended)")
+                else:
+                    print(colorama.Fore.RED + f"Failed to upvote post {post_id} with account {account} ({e})")
+        time.sleep(int(delay))
     
     input(colorama.Fore.GREEN + "Finished upvoting, press enter to continue")
+
+def Downvote(mgr, amount=None, comment=False):
+    import random
+    import colorama
+    import time
+
+    from api import downvote_post
+    # ask user for the post id
+    if post_ids == None: post_id = input(colorama.Fore.MAGENTA + "Post ID's (separated by ', '): ").strip()
+    post_ids = post_ids.split(', ')
+    for post_id in post_ids:
+        if comment == False and not post_id.startswith('t3_'): post_id = 't3_' + post_id
+        if comment == True and not post_id.startswith('t1_'): post_id = 't1_' + post_id
+    # ask user for amount of accounts out of the loaded accounts to use
+    if amount == None:
+        amount = 1000000000
+        while int(amount) > len(mgr.accounts):
+            amount = input(colorama.Fore.MAGENTA + f"Amount of accounts to use (Max {len(mgr.accounts)}): ").strip()
+            if int(amount) > len(mgr.accounts):
+                print(colorama.Fore.RED + f"Amount is higher than the amount of accounts loaded ({len(mgr.accounts)})")
+    
+    # pick amount random accounts from the loaded accounts
+    accounts = random.sample(list(mgr.accounts), int(amount))
+
+    # ask user for the delay between upvotes
+    delay = input(colorama.Fore.MAGENTA + "Delay between downvotes (in seconds): ").strip()
+
+    # loop through the accounts and upvote the post
+    for account in accounts:
+        user = mgr.get_api(account, proxy=mgr.proxies.random())
+        for post_id in post_ids:
+            try:
+                downvote_post(user, post_id)
+                print(colorama.Fore.GREEN + f"Downvoted post {post_id} with account {account}")
+            except Exception as e:
+                if "401" in str(e):
+                    print(colorama.Fore.RED + f"Failed to downvote post {post_id} with account {account} (Account Suspended)")
+                else:
+                    print(colorama.Fore.RED + f"Failed to downvote post {post_id} with account {account} ({e})")
+        time.sleep(int(delay))
+    
+    input(colorama.Fore.GREEN + "Finished downvoting, press enter to continue")
 
 def ConvertAccounts(mgr, file=None):
     from .convert import Convert
