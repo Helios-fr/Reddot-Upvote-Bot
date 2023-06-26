@@ -182,29 +182,20 @@ def LoadAccounts(mgr, file=None):
 def ViewAccounts(mgr, slow=None):
     import colorama
     import threading
+    from api import get_verified
 
-    if slow == None: slow = input(colorama.Fore.MAGENTA + "Get the statistics of the user's upvotes/downvotes? (slow) (y/n): ").strip().lower() == "y"
+    if slow == None: slow = input(colorama.Fore.MAGENTA + "Get the statistics of the user's email verification status? (slow) (y/n): ").strip().lower() == "y"
 
     def check_account(username):
-        api = mgr.get_api(username)
-        
-        upvotes = 0
-        downvotes = 0
-        for vote in api.user.me().upvoted():
-            upvotes += 1
-        for vote in api.user.me().downvoted():
-            downvotes += 1
-        
-        print(colorama.Fore.CYAN + f"Username: {username} | Upvotes: {upvotes} | Downvotes: {downvotes}")
+        verified = get_verified(username, proxy=mgr.proxies.random())
+        print(colorama.Fore.CYAN + f"Username: {username} - Verified: {verified}")
     
     if slow:
         threads = []
         for username in mgr.accounts:
             thread = threading.Thread(target=check_account, args=(username,))
-            thread.start()
             threads.append(thread)
-        
-        # await all threads to finish
+            thread.start()
         for thread in threads:
             thread.join()
     else:
