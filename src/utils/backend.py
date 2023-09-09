@@ -217,7 +217,15 @@ def LoadProxies(mgr, file=None):
     else:
         mgr.proxies.load(file, logging=True)
 
-    input(colorama.Fore.GREEN + "Loaded " + str(len(mgr.proxies.proxies) - before) + " proxies, press enter to continue")
+    input(colorama.Fore.GREEN + "Loaded " + str(len(mgr.proxies.proxies) - before) + ("proxy" if len(mgr.proxies.proxies) - before == 1 else "proxies") + ", press enter to continue")
+
+def ViewProxies(mgr):
+    import colorama
+
+    for proxy in mgr.proxies.proxies:
+        print(colorama.Fore.CYAN + proxy)
+    
+    input(colorama.Fore.GREEN + "Press enter to continue")
 
 def Exit():
     import colorama
