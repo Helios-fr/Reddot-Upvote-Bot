@@ -30,8 +30,12 @@ def main():
     elif choice == "6":
         ViewAccounts(mgr)
     elif choice == "7":
-        ConvertAccounts(mgr)
+        LoadProxies(mgr)
     elif choice == "8":
+        ViewProxies(mgr)
+    elif choice == "9":
+        ConvertAccounts(mgr)
+    elif choice == "10":
         Exit()
 
 while True:

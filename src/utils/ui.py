@@ -23,7 +23,8 @@ def Options():
     print(colorama.Fore.CYAN + "1. Upvote a post     2. Downvote a post")
     print(colorama.Fore.CYAN + "3. Upvote a comment  4. Downvote a comment")
     print(colorama.Fore.CYAN + "5. Load accounts     6. View accounts")
-    print(colorama.Fore.CYAN + "7. Convert accounts  8. Exit")
+    print(colorama.Fore.CYAN + "7. Load proxies      8. View proxies")
+    print(colorama.Fore.CYAN + "9. Convert accounts  10. Exit")
     print()
 
     try:
