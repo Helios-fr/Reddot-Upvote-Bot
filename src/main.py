@@ -10,9 +10,7 @@ mgr = Manager('converted.txt')
 mgr.proxies = ProxyManager()
 
 # to load your proxies, use the following code:
-mgr.proxies.load_single("http://Q1v6UZojLIqT:4HjzRVMhbj@176.9.154.70:25007")
-# https://user:password@proxyip:port
-# http://Q1v6UZojLIqT:4HjzRVMhbj:176.9.154.70:25007
+# mgr.proxies.load_single("https://user:password@proxyip:port")
 
 def main():
     Clear()
