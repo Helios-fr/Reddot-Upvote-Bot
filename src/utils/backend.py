@@ -204,6 +204,21 @@ def ViewAccounts(mgr, slow=None):
 
     input(colorama.Fore.GREEN + "Press enter to continue")
 
+def LoadProxies(mgr, file=None):
+    import colorama
+    single = False
+    before = len(mgr.proxies.proxies)
+
+    if file == None: file = input(colorama.Fore.MAGENTA + "Enter File or full proxy address: ").strip()
+    if "http" in file: single = True
+
+    if single:
+        mgr.proxies.load_single(file, logging=True)
+    else:
+        mgr.proxies.load(file, logging=True)
+
+    input(colorama.Fore.GREEN + "Loaded " + str(len(mgr.proxies.proxies) - before) + " proxies, press enter to continue")
+
 def Exit():
     import colorama
     import os
